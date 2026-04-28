@@ -1984,7 +1984,24 @@
     toast("✓ README.md downloaded!");
   }
   window.downloadMd = downloadMd;  // Expose globally for HTML
-
+  
+  /**
+   * Opens the browser print dialog showing only the preview panel content.
+   * Hides the editor panel and all UI controls using CSS print media queries.
+   * Works across Chrome, Firefox, and Edge.
+   *
+   * @function printPreview
+   * @returns {void}
+   */
+  function printPreview() {
+    if (!currentMd) {
+      toast("Nothing to print yet!");
+      return;
+    }
+    toast("Opening print preview...");
+    window.print();
+  }
+  window.printPreview = printPreview;  // Expose globally for HTML
 
   /**
    * Resets all form fields and application state to defaults.

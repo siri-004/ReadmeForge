@@ -1096,6 +1096,7 @@ select option {
 .preview-actions {
   display: flex;
   gap: 8px;
+  margin-left: 8px;
 }
 
 .preview-zoom-controls {
@@ -1118,7 +1119,7 @@ select option {
 }
 
 .pbtn {
-  padding: 8px 14px;
+  padding: 8px 10px;
   border-radius: 8px;
   font-size: 12px;
   font-weight: 600;
@@ -1151,10 +1152,16 @@ select option {
   color: #10b981;
 }
 
-.pbtn:disabled {
-  opacity: 0.45;
-  cursor: not-allowed;
-  transform: none;
+.pbtn.print {
+  background: rgba(129, 140, 248, 0.08);
+  border-color: rgba(129, 140, 248, 0.3);
+  color: var(--accent2);
+}
+
+.pbtn.print:hover {
+  background: rgba(129, 140, 248, 0.18);
+  color: var(--accent2);
+  border-color: var(--accent2);
 }
 
 .preview-body {
@@ -2117,6 +2124,201 @@ body.light-mode .gh-preview {
   padding: 24px;
   background: var(--bg);
 }
+.spinner {
+  border-radius: 50%;
+  animation: spin 0.7s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Scrollbars */
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: var(--surface);
+}
+
+::-webkit-scrollbar-thumb {
+  background: var(--border2);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: var(--muted);
+}
+
+/* =======================================================
+   RESPONSIVENESS (MOBILE & TABLET)
+@media (max-width: 1024px) {
+  .main {
+    flex-direction: column;
+    height: auto;
+    min-height: calc(100vh - 64px);
+  }
+
+  .sidebar {
+    width: 100%;
+    border-right: none;
+    border-bottom: 1px solid var(--border);
+  }
+
+  .editor {
+    width: 100%;
+  }
+
+  .preview {
+    width: 100%;
+    border-left: none;
+    border-top: 1px solid var(--border);
+  }
+
+  .sidebar,
+  .editor,
+  .preview {
+    overflow: visible;
+  }
+}
+
+@media (max-width: 768px) {
+  .header {
+    height: auto;
+    padding: 16px;
+    flex-direction: column;
+    gap: 16px;
+    align-items: center;
+  }
+
+  .header-center {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .header-right {
+    width: 100%;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .hbtn,
+  .hbtn.primary {
+    flex: 1;
+    text-align: center;
+    justify-content: center;
+    min-width: 100px;
+  }
+
+  .two-col {
+    grid-template-columns: 1fr;
+    gap: 16px;
+  }
+
+  .editor-inner {
+    padding: 16px;
+  }
+
+  .preview-body {
+    padding: 16px;
+  }
+
+  .preview-header {
+    flex-direction: column;
+    gap: 12px;
+    align-items: stretch;
+  }
+
+  .preview-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .preview-actions {
+    width: 100%;
+    justify-content: space-between;
+  }
+
+  .preview-actions .pbtn {
+    flex: 1;
+    justify-content: center;
+  }
+}
+
+/* ── MODAL STYLES ── */
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(4px);
+  z-index: 9999;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  transition: opacity 0.3s ease;
+}
+
+.modal {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  width: 100%;
+  max-width: 900px;
+  height: 80vh;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+  overflow: hidden;
+}
+
+.modal-header {
+  padding: 16px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface2);
+}
+
+.modal-title {
+  margin: 0;
+  font-size: 16px;
+  font-family: 'Space Grotesk', sans-serif;
+  color: var(--text);
+}
+
+.modal-close {
+  background: none;
+  border: none;
+  color: var(--muted);
+  font-size: 18px;
+  cursor: pointer;
+}
+
+.modal-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  background: var(--bg);
+}
 
 .modal-footer {
   padding: 16px 24px;
@@ -2172,11 +2374,6 @@ body.light-mode .gh-preview {
     width: 100%;
   }
 
-  .preview-zoom-controls {
-    width: 100%;
-    justify-content: center;
-  }
-
   .preview-actions .pbtn {
     width: 100%;
     justify-content: center;
@@ -2201,4 +2398,117 @@ body.light-mode .gh-preview {
 
 .autosave-status.visible {
   opacity: 1;
+}
+/* ── PRINT MEDIA STYLES ── */
+@media print {
+
+  /* Hide everything except the preview panel */
+  .top-nav {
+    display: none !important;
+  }
+
+  .hero-content {
+    display: none !important;
+  }
+
+  .header {
+    display: none !important;
+  }
+
+  .sidebar {
+    display: none !important;
+  }
+
+  .editor {
+    display: none !important;
+  }
+
+  /* Show the preview panel full width */
+  .preview {
+    display: block !important;
+    width: 100% !important;
+    height: auto !important;
+    overflow: visible !important;
+    position: static !important;
+    border: none !important;
+    background: white !important;
+  }
+
+  /* Hide the preview header (tabs + buttons) */
+  .preview-header {
+    display: none !important;
+  }
+
+  /* Hide the quality score panel */
+  .quality-panel {
+    display: none !important;
+  }
+
+  /* Make the preview body fully visible */
+  .preview-body {
+    overflow: visible !important;
+    padding: 0 !important;
+    background: white !important;
+    color: black !important;
+  }
+
+  /* Clean up the rendered markdown */
+  .gh-preview {
+    background: white !important;
+    color: black !important;
+    border-radius: 0 !important;
+    box-shadow: none !important;
+    max-width: 100% !important;
+    padding: 0 !important;
+  }
+
+  pre {
+    border: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+    color: black !important;
+  }
+
+  code {
+    border: 1px solid #e2e8f0 !important;
+    background: #f8fafc !important;
+    color: black !important;
+  }
+
+  pre {
+    page-break-inside: avoid;
+  }
+
+  blockquote {
+    page-break-inside: avoid;
+  }
+
+  table {
+    page-break-inside: avoid;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    page-break-after: avoid;
+  }
+
+  a {
+    text-decoration: none !important;
+    color: black !important;
+  }
+  /* Hide the hero/landing section */
+  .hero-content {
+    display: none !important;
+  }
+
+  /* Hide toast notifications */
+  .toast {
+    display: none !important;
+  }
+  /* Hide hero section and scroll button */
+  .hero-wrapper {
+    display: none !important;
+  }
+
+  .scroll-action {
+    display: none !important;
+  }
 }
