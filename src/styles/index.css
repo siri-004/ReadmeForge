@@ -645,7 +645,7 @@ body.light-mode .hero-title {
 .theme-toggle:hover {
   background: var(--surface3);
   border-color: var(--accent);
-  transform: scale(1.05) rotate(15deg);
+  transform: scale(1.05);
 }
 
 .theme-toggle:active {
