@@ -27,6 +27,18 @@ export default function LandingPage() {
       <SEOHead
         title="READMEForge — Generate Professional GitHub READMEs in 30 Seconds"
         description="Free, open-source README generator. Live preview, 8 templates, quality scoring, and one-click export. No sign-up required."
+        path="/"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'WebApplication',
+          name: 'READMEForge',
+          url: 'https://makeareadme.netlify.app/',
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Web',
+          description: 'Free, open-source README generator with live preview, templates, quality scoring, and Markdown export.',
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+          featureList: features.map(feature => feature.title),
+        }}
       />
       <Navbar />
 

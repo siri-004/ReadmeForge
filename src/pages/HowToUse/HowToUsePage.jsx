@@ -39,6 +39,20 @@ export default function HowToUsePage() {
       <SEOHead
         title="How To Use — READMEForge"
         description="Step-by-step guide to creating a professional GitHub README with READMEForge. Learn templates, sections, export, and tips."
+        path="/how-to-use"
+        keywords="READMEForge guide, how to write a README, GitHub README tutorial, Markdown documentation guide"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'FAQPage',
+          mainEntity: faqs.map(faq => ({
+            '@type': 'Question',
+            name: faq.q,
+            acceptedAnswer: {
+              '@type': 'Answer',
+              text: faq.a,
+            },
+          })),
+        }}
       />
       <Navbar />
 
