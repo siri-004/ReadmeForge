@@ -16,6 +16,7 @@ export default function ReadmeMaker() {
   const {
     formData, updateField,
     sectionState, toggleSection,
+    sectionOrder, updateSectionOrder,
     selectedTechs, toggleTech,
     selectedBadges, toggleBadge,
     screenshots, addScreenshots, removeScreenshot,
@@ -26,8 +27,8 @@ export default function ReadmeMaker() {
   const [activeTemplate, setActiveTemplate] = useState(null);
 
   const currentMd = useMemo(() =>
-    generateMarkdown({ formData, sectionState, selectedTechs, selectedBadges, screenshots }),
-    [formData, sectionState, selectedTechs, selectedBadges, screenshots]
+    generateMarkdown({ formData, sectionState, selectedTechs, selectedBadges, screenshots, sectionOrder }),
+    [formData, sectionState, selectedTechs, selectedBadges, screenshots, sectionOrder]
   );
 
   const activeSectionCount = Object.values(sectionState).filter(Boolean).length;
@@ -61,6 +62,18 @@ export default function ReadmeMaker() {
       <SEOHead
         title="README Maker — READMEForge"
         description="Generate a professional GitHub README in seconds with live preview, templates, and one-click export."
+        path="/readme-maker"
+        keywords="README maker, GitHub README builder, Markdown generator, README template editor, developer documentation"
+        structuredData={{
+          '@context': 'https://schema.org',
+          '@type': 'SoftwareApplication',
+          name: 'READMEForge README Maker',
+          url: 'https://makeareadme.netlify.app/readme-maker',
+          applicationCategory: 'DeveloperApplication',
+          operatingSystem: 'Web',
+          description: 'Browser-based README maker with live Markdown preview, templates, badges, and export tools.',
+          offers: { '@type': 'Offer', price: '0', priceCurrency: 'USD' },
+        }}
       />
       <Navbar />
       <div id="app-builder" style={{ paddingTop: 64 }}>
@@ -89,6 +102,8 @@ export default function ReadmeMaker() {
           <Sidebar
             sectionState={sectionState}
             toggleSection={toggleSection}
+            sectionOrder={sectionOrder}
+            updateSectionOrder={updateSectionOrder}
             selectedTechs={selectedTechs}
             toggleTech={toggleTech}
             applyTemplate={handleApplyTemplate}
